@@ -5,7 +5,7 @@ import Posts from './components/Posts/Posts';
 import memories from './images/memories.png';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getPosts } from './redux/actions/post';
+import { getPosts } from './redux/postSlice';
 
 function App() {
   const dispatch = useDispatch();
