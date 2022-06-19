@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import dotenv from 'dotenv';
 
+import postRoutes from './routes/posts.js';
+
 dotenv.config();
 
 const app = express();
@@ -14,17 +16,16 @@ app.use(cors());
 app.use(compression());
 app.disable('x-powered-by');
 
+app.use('/api/v1/posts', postRoutes)
+
 app.set('port', process.env.PORT || 4000);
 
-app.get('/', (req, res) => {
-    res.send('hi')
-})
 
 const CONNECTION_URL = process.env.DB_CONNECTION_URL;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(app.get('port'),
-        () => { console.log(`The server running on http://localhost:${app.get('port')}`)}))
+        () => console.log(`The server running on http://localhost:${app.get('port')}`)))
     .catch((error) => console.log(error.message));
 
 
