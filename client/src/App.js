@@ -5,13 +5,23 @@ import Posts from './components/Posts/Posts';
 import memories from './images/memories.png';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getPosts } from './redux/postSlice';
+import { getPostsAction } from './redux/postSlice';
+import axios from 'axios';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getPosts(dispatch);
+    const getPosts = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:4000/api/v1/posts');
+        dispatch(getPostsAction(data));
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    getPosts();
+
   }, [dispatch]);
 
   return (
