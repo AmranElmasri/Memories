@@ -1,20 +1,40 @@
 import axios from 'axios';
-import { getPostsAction } from '../redux/postSlice';
-import { createPostAction } from '../redux/postSlice';
-import { useDispatch } from 'react-redux';
+import { getPostsAction, createPostAction, updatePostAction } from '../redux/postSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-const url = 'http://localhost:4000/api/v1/posts';
+export const Api = () => {
+    const url = 'http://localhost:4000/api/v1/posts';
+    const dispatch = useDispatch();
+    const { currentId } = useSelector((state => state.posts));
 
-export const fetchPosts = await axios.get(url);
-
-export const createPost = async (post) => {
-    const dispatch = useDispatch()
-    try {
-        const { data } = axios.post(url, post);
-        dispatch(data)
-
-    } catch (error) {
-        console.log(error.message)
-
+    return {
+        getPosts: async function(){
+            try {
+                const { data } = await axios.get(url);
+                console.log(data, 88);
+                dispatch(getPostsAction(data));
+            } catch (error) {
+                console.log(error.message);
+            }
+        },
+        createPost: async (newPost) => {
+            try {
+                const { data } = await axios.post(url, newPost);
+                dispatch(createPostAction(data));
+            } catch (error) {
+                console.log(error.message);
+            }
+        },
+        updatePost: async (newPost) => {
+            try {
+                const { data } = await axios.patch(`http://localhost:4000/api/v1/posts/${currentId}`, newPost);
+                dispatch(updatePostAction(data));
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
     }
+
 }
+
+export const { getPosts,createPost, updatePost } = Api;

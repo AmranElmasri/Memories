@@ -4,12 +4,13 @@ import Form from './components/Form/From';
 import Posts from './components/Posts/Posts';
 import memories from './images/memories.png';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPostsAction } from './redux/postSlice';
 import axios from 'axios';
 
 function App() {
   const dispatch = useDispatch();
+  const { currentId } = useSelector((state => state.posts));
 
   useEffect(() => {
     const getPosts = async () => {
@@ -17,12 +18,12 @@ function App() {
         const { data } = await axios.get('http://localhost:4000/api/v1/posts');
         dispatch(getPostsAction(data));
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     }
     getPosts();
 
-  }, [dispatch]);
+  }, [currentId, dispatch]);
 
   return (
     <div className="App">
