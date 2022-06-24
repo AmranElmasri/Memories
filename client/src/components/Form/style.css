@@ -20,3 +20,6 @@ form {
 .field {
     margin: 5px 0 !important;
 }
+.clear-btn {
+    background-color: rgb(245, 65, 65) !important;
+}

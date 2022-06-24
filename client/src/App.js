@@ -34,7 +34,7 @@ function App() {
         </AppBar>
         <Grow in>
           <Container>
-            <Grid container spacing={3}>
+            <Grid className = 'grid-content' container spacing={3} >
               <Grid item xs={12} sm={7}>
                 <Posts />
               </Grid>
