@@ -27,6 +27,7 @@ export default function From() {
         try {
           const { data } = await axios.patch(`http://localhost:4000/api/v1/posts/${currentId}`, postData);
           dispatch(updatePostAction(data));
+          
         } catch (error) {
           console.log(error);
         }
