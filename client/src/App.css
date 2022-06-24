@@ -1,22 +1,3 @@
-.AppBar {
-    background-color: red;
-    border-radius: 15px;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: row !important; 
-    justify-content: center;
-    align-items: center;
-
-}
-.Typography {
-    color: rgba(0,183,255, 1);
-    /* width: 50%; */
-}
-.logo {
-    margin-left: 15px;
-    height: 60px;
-    width: 60px;    
-}
 
 /* in this breakpoint we need the form before posts */
 @media (max-width: 576px) {
