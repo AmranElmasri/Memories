@@ -67,7 +67,7 @@ export default function From() {
         <TextField className='field' name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
         <div className='fileInput'><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
         <Button className='submitBtn' variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-        <Button variant="contained" color="secondary" size="small" fullWidth onClick={clearInputs}>Clear</Button>
+        <Button className='clear-btn' variant="contained" size="small" fullWidth onClick={clearInputs}>Clear</Button>
       </form>
     </Paper>
   )

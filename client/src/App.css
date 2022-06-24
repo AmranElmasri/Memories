@@ -15,5 +15,12 @@
 .logo {
     margin-left: 15px;
     height: 60px;
-    width: 60px;
+    width: 60px;    
+}
+
+/* in this breakpoint we need the form before posts */
+@media (max-width: 576px) {
+    .grid-content {
+        flex-direction: column-reverse !important;
+    }
 }
