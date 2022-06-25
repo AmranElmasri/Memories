@@ -5,11 +5,14 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import postsReducer from './redux/postSlice'
+import authReducer from './redux/authSlice'
+
 
 
 const store = configureStore({
   reducer: {
     posts: postsReducer,
+    auth: authReducer
   }
 });
 

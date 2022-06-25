@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import memories from '../../images/memories.png';
 import './navbar.css'
 
 export default function Navbar() {
-  const user = null;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+
+  const navigate = useNavigate();
+  
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    navigate('/auth');
+  }
 
   return (
     <AppBar className='AppBar' position='static' color='inherit' >
@@ -16,9 +24,9 @@ export default function Navbar() {
       <Toolbar className='toolbar'>
         {user ?
           <div className='profile'>
-            <Avatar className='purple' alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
-            <Typography className='userName' variant='h6'> {user.result.name}</Typography>
-            <Button className='logout' variant='contained' color="secondary" onClick={() => { }}> Logout</Button>
+            <Avatar className='purple' alt={user?.user.displayName} src={user?.user.photoURL}>{user?.user.displayName.charAt(0)}</Avatar>
+            <Typography className='userName' variant='h6'> {user?.user.displayName}</Typography>
+            <Button className='logout' variant='contained' color="secondary" onClick={logout}> Logout</Button>
           </div>
           :
           <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
