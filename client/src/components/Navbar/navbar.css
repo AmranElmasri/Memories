@@ -26,13 +26,14 @@
 .toolbar {
     display: flex;
     justify-content: flex-end;
-    width: '400px';
+    width: 400px;
   }
 
   .profile{
     display: flex;
     justify-content: space-between;
-    width: '400px';
+    align-items: center;
+    width: 400px;
   }
 
   /* .userName {
