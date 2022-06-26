@@ -36,6 +36,9 @@
     width: 400px;
   }
 
+  .logout-btn {
+    background-color: rgb(245, 65, 65) !important;
+  }
   /* .userName {
     display: flex;
     align-content: center;

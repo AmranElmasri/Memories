@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import postMessage from '../database/models/postMessage.js';
+import postMessage from '../../database/models/postMessage.js';
 
 const deletePost = async (req, res) => {
     const { id } = req.params;

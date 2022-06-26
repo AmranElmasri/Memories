@@ -8,8 +8,11 @@ import './auth.css';
 import { authAction } from '../../redux/authSlice';
 import { auth, provider, signInWithPopup } from './Firebase';
 
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+
 const SignUp = () => {
 
+  const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
 
   const dispatch = useDispatch();
@@ -37,7 +40,18 @@ const SignUp = () => {
 
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    if (isSignup) {
+    //  signup request ...
+    } else {
+      //  signin request ...
+    }
+  };
+
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
     <Container component='main' maxWidth='xs' >
@@ -50,18 +64,20 @@ const SignUp = () => {
           <Grid container spacing={3}>
             {isSignup &&
               <>
-                <Input name="firstName" label="First Name" autoFocus half />
-                <Input name="lastName" label="Last Name" half />
+                <Input name="firstName" label="First Name" autoFocus half handleChange={handleChange} />
+                <Input name="lastName" label="Last Name" half handleChange={handleChange} />
               </>
             }
-            <Input name='email' label='Email Address' type="email" />
+            <Input name='email' label='Email Address' type="email" handleChange={handleChange} />
             <Input
               name="password"
               label="Password"
               type={showPassword ? 'text' : 'password'}
-              handleShowPassword={handleShowPassword} />
+              handleShowPassword={handleShowPassword} 
+              handleChange={handleChange}
+              />
 
-            {isSignup && <Input name="confirmPassword" label="Repeat Password" type="password" />}
+            {isSignup && <Input name="confirmPassword" label="Repeat Password" type="password" handleChange={handleChange} />}
           </Grid>
 
           <Button type="submit" fullWidth variant="contained" color="primary" className='submitButton'>
@@ -74,7 +90,7 @@ const SignUp = () => {
 
           <Grid container justifyContent={'flex-end'}>
             <Grid item>
-              <Button onClick={switchMode}>
+              <Button onClick={switchMode} className='switchModeBtn'>
                 {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
               </Button>
             </Grid>
