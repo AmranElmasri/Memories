@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPostAction, updatePostAction, createCurrentId } from '../../redux/postSlice';
 
 export default function From() {
-  const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+  const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
   const dispatch = useDispatch();
   const { currentId } = useSelector((state => state.posts));
   const { posts } = useSelector((state => state.posts));
@@ -25,7 +25,7 @@ export default function From() {
     if (currentId) {
       const updatePost = async () => {
         try {
-          const { data } = await axios.patch(`http://localhost:4000/api/v1/posts/${currentId}`, postData);
+          const { data } = await axios.patch(`/api/v1/posts/${currentId}`, postData);
           dispatch(updatePostAction(data));
           
         } catch (error) {
@@ -38,7 +38,7 @@ export default function From() {
     } else {
       const createPost = async () => {
         try {
-          const { data } = await axios.post('http://localhost:4000/api/v1/posts', postData);
+          const { data } = await axios.post('/api/v1/posts', postData);
           dispatch(createPostAction(data));
 
         } catch (error) {
@@ -54,7 +54,7 @@ export default function From() {
 
   const clearInputs = () => {
     dispatch(createCurrentId(null));
-    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+    setPostData({ title: '', message: '', tags: '', selectedFile: '' });
   }
 
 
@@ -62,7 +62,6 @@ export default function From() {
     <Paper className='paper'>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography variant="h6">{currentId ? 'Update Memory' : 'Creating a Memory'} </Typography>
-        <TextField className='field' name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
         <TextField className='field' name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField className='field' name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <TextField className='field' name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />

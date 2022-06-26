@@ -16,7 +16,7 @@ export default function Post({ post }) {
 
   const deletePost = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/v1/posts/${id}`);
+      await axios.delete(`/api/v1/posts/${id}`);
       dispatch(deletePostAction(id));
 
     } catch (error) {
@@ -26,7 +26,7 @@ export default function Post({ post }) {
 
   const likePost = async (id) => {
     try {
-      const { data } = await axios.patch(`http://localhost:4000/api/v1/posts/${id}/like`);
+      const { data } = await axios.patch(`/api/v1/posts/${id}/like`);
       dispatch(likePostAction(data));
 
     } catch (error) {
@@ -38,7 +38,7 @@ export default function Post({ post }) {
     <Card className='card'>
       <CardMedia className='cardMedia' image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
       <div className='overlay'>
-        <Typography variant='h6'>{post.creator}</Typography>
+        <Typography variant='h6'>{post.name}</Typography>
         <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
       </div>
       <div className='overlay2'>

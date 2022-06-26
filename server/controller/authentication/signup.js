@@ -1,17 +1,17 @@
 import { hash } from 'bcrypt';
-import { sign } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import UserModal from '../../database/models/user.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const signup = async () => {
+const signup = async (req, res) => {
     const secret = process.env.SECRET_KEY;
-
+    
     const { email, password, firstName, lastName } = req.body;
 
     try {
-        const oldUser = UserModal.findOne({ email });
+        const oldUser = await UserModal.findOne({ email });
 
         if (oldUser) return res.status(400).json({ message: "User already exists" });
 
@@ -19,11 +19,9 @@ const signup = async () => {
 
         const result = await UserModal.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-        const token = sign({ email: result.email, id: result._id }, secret, { expiresIn: "1h" });
+        const token = jwt.sign({ email: result.email, id: result._id }, secret);
 
-        res.cookie('token', token, { httpOnly: true });
-
-        res.status(201).json({ result, token });
+        res.cookie('token', token).status(201).json({ result, token });
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });

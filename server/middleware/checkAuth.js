@@ -1,4 +1,4 @@
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,7 +10,7 @@ const checkAuth = async (req, res, next) => {
         const { token } = req.cookies;
         if (!token) res.status(401).json({ message: 'Access denied' });
 
-        const decoded = verify(token, secret);
+        const decoded = jwt.verify(token, secret);
         req.userInformation = decoded;
 
         next();
