@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:4000/api/v1/posts');
+        const { data } = await axios.get('/api/v1/posts');
         dispatch(getPostsAction(data));
       } catch (error) {
         console.log(error);

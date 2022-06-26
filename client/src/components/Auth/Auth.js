@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import './auth.css';
 import { authAction } from '../../redux/authSlice';
 import { auth, provider, signInWithPopup } from './Firebase';
+import axios from 'axios';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -31,8 +32,8 @@ const SignUp = () => {
 
   const signInWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, provider)
-      localStorage.setItem('user', JSON.stringify(result))
+      const result = await signInWithPopup(auth, provider);
+      localStorage.setItem('user', JSON.stringify(result));
       navigate('/');
     } catch (error) {
       alert('Google Sign In was unsuccessful. Try again later');
@@ -40,13 +41,26 @@ const SignUp = () => {
 
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isSignup) {
-    //  signup request ...
+      try {
+        const { data } = await axios.post('/api/v1/user/signup', form)
+        console.log(data);
+
+      } catch (error) {
+        console.log(error)
+      }
     } else {
-      //  signin request ...
+      try {
+        const { data } = await axios.post('/api/v1/user/signin', form);
+        console.log(data);
+
+      } catch (error) {
+        console.log(error)
+
+      }
     }
   };
 
@@ -60,7 +74,7 @@ const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">{isSignup ? 'Sign up' : 'Sign in'}</Typography>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             {isSignup &&
               <>
@@ -73,9 +87,9 @@ const SignUp = () => {
               name="password"
               label="Password"
               type={showPassword ? 'text' : 'password'}
-              handleShowPassword={handleShowPassword} 
+              handleShowPassword={handleShowPassword}
               handleChange={handleChange}
-              />
+            />
 
             {isSignup && <Input name="confirmPassword" label="Repeat Password" type="password" handleChange={handleChange} />}
           </Grid>

@@ -1,10 +1,9 @@
 import { compare } from 'bcrypt';
-import { sign } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import UserModal from '../../database/models/user.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
 
 const signin = async (req, res) => {
     const secret = process.env.SECRET_KEY;
@@ -20,11 +19,9 @@ const signin = async (req, res) => {
 
         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-        const token = sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
+        const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
 
-        res.cookie('token', token, { httpOnly: true });
-
-        res.status(200).json({ result: oldUser, token });
+        res.cookie('token', token, { httpOnly: true }).status(200).json({ result: oldUser, token });
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
