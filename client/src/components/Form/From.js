@@ -11,6 +11,7 @@ export default function From() {
   const dispatch = useDispatch();
   const { currentId } = useSelector((state => state.posts));
   const { posts } = useSelector((state => state.posts));
+  const userInfo = useSelector((state) => state.auth.authData);
 
   useEffect(() => {
     if (currentId) {
@@ -25,9 +26,9 @@ export default function From() {
     if (currentId) {
       const updatePost = async () => {
         try {
-          const { data } = await axios.patch(`/api/v1/posts/${currentId}`, postData);
+          const { data } = await axios.patch(`/api/v1/posts/${currentId}`, { ...postData, creator: userInfo?.name });
           dispatch(updatePostAction(data));
-          
+
         } catch (error) {
           console.log(error);
         }
@@ -38,14 +39,14 @@ export default function From() {
     } else {
       const createPost = async () => {
         try {
-          const { data } = await axios.post('/api/v1/posts', postData);
+          const { data } = await axios.post('/api/v1/posts', { ...postData, creator: userInfo?.name });
           dispatch(createPostAction(data));
 
         } catch (error) {
           console.log(error)
         }
       }
-      
+
       createPost();
     }
 
@@ -55,6 +56,17 @@ export default function From() {
   const clearInputs = () => {
     dispatch(createCurrentId(null));
     setPostData({ title: '', message: '', tags: '', selectedFile: '' });
+  }
+
+
+  if (!userInfo && !JSON.parse(localStorage.getItem('user'))) {
+    return (
+      <Paper className='paper'>
+        <Typography variant="h6" align="center">
+          Please Sign In to create your own memories and like other's memories.
+        </Typography>
+      </Paper>
+    );
   }
 
 

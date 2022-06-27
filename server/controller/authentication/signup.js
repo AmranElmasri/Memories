@@ -19,9 +19,9 @@ const signup = async (req, res) => {
 
         const result = await UserModal.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-        const token = jwt.sign({ email: result.email, id: result._id }, secret);
+        const token = jwt.sign({ email: result.email, id: result._id, name: result.name }, secret, { expiresIn: "30d" });
 
-        res.cookie('token', token).status(201).json({ result, token });
+        res.status(201).cookie('token', token).json({ result, token });
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });

@@ -19,9 +19,9 @@ const signin = async (req, res) => {
 
         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-        const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
+        const token = jwt.sign({ email: oldUser.email, id: oldUser._id, name: oldUser.name }, secret, { expiresIn: "30d" });
 
-        res.cookie('token', token, { httpOnly: true }).status(200).json({ result: oldUser, token });
+        res.status(200).cookie('token', token).json({ result: oldUser, token });
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
