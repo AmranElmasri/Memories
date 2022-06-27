@@ -5,7 +5,6 @@ export const postsSlice = createSlice({
     initialState: { authData: null },
     reducers: {
         authAction: (state, action) => {
-            console.log(action.payload);
             state.authData = action.payload;
         }
     }

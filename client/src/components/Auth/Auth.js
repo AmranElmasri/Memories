@@ -47,7 +47,8 @@ const SignUp = () => {
     if (isSignup) {
       try {
         const { data } = await axios.post('/api/v1/user/signup', form)
-        console.log(data);
+        navigate('/');
+
 
       } catch (error) {
         console.log(error)
@@ -55,7 +56,7 @@ const SignUp = () => {
     } else {
       try {
         const { data } = await axios.post('/api/v1/user/signin', form);
-        console.log(data);
+        navigate('/');
 
       } catch (error) {
         console.log(error)
