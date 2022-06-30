@@ -7,7 +7,7 @@ dotenv.config();
 
 const signup = async (req, res) => {
     const secret = process.env.SECRET_KEY;
-    
+
     const { email, password, firstName, lastName } = req.body;
 
     try {
@@ -22,6 +22,7 @@ const signup = async (req, res) => {
         const token = jwt.sign({ email: result.email, id: result._id, name: result.name }, secret, { expiresIn: "30d" });
 
         res.status(201).cookie('token', token).json({ result, token });
+
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });

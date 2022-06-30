@@ -5,7 +5,7 @@ import memories from '../../images/memories.png';
 import './navbar.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { authAction } from '../../redux/authSlice';
-import getToken from '../../utils/getToken';
+import getToken from '../../utils/helpers/getToken';
 
 export default function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));

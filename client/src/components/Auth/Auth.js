@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Avatar, Container, Button, Grid, Paper, Typography, InputAdornment, IconButton } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Input from './Input';
-import { useDispatch } from 'react-redux';
 import './auth.css';
-import { authAction } from '../../redux/authSlice';
 import { auth, provider, signInWithPopup } from './Firebase';
 import axios from 'axios';
+import { signupSchema, signinSchema } from '../../utils/validation';
+import Form from '../FormUI/Form';
+import Input from '../FormUI/Input';
+import Submit from '../FormUI/Submit';
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 const SignUp = () => {
+  let initialValues = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
-  const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -24,16 +25,18 @@ const SignUp = () => {
 
 
   const switchMode = () => {
-    // setForm(initialState);
+    initialValues = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
 
 
-  const signInWithGoogle = async () => {
+  const signUpWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      localStorage.setItem('user', JSON.stringify(result));
+
+      const userInformation = { firstName: result.user.displayName.split(' ')[0], lastName: result.user.displayName.split(' ')[1] || '', email: result.user.email, password: result.user.accessToken, confirmPassword: result.user.accessToken };
+      await axios.post('/api/v1/user/signup', userInformation);
       navigate('/');
     } catch (error) {
       alert('Google Sign In was unsuccessful. Try again later');
@@ -41,21 +44,34 @@ const SignUp = () => {
 
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const userInformation = { email: result.user.email, password: result.user.accessToken };
+      await axios.post('/api/v1/user/signin', userInformation);
+      navigate('/');
+    } catch (error) {
+      alert('Google Sign In was unsuccessful. Try again later');
+    }
+
+  };
+
+
+  const handleSubmit = async (userInformation) => {
+    console.log(userInformation);
 
     if (isSignup) {
       try {
-        const { data } = await axios.post('/api/v1/user/signup', form)
+        await axios.post('/api/v1/user/signup', { ...userInformation });
         navigate('/');
-
 
       } catch (error) {
         console.log(error)
       }
     } else {
       try {
-        const { data } = await axios.post('/api/v1/user/signin', form);
+        await axios.post('/api/v1/user/signin', { ...userInformation });
         navigate('/');
 
       } catch (error) {
@@ -66,7 +82,14 @@ const SignUp = () => {
   };
 
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const signWithGoogle = async () => {
+    if (isSignup) {
+      signUpWithGoogle();
+    } else {
+      signInWithGoogle();
+    }
+  };
 
   return (
     <Container component='main' maxWidth='xs' >
@@ -75,31 +98,58 @@ const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">{isSignup ? 'Sign up' : 'Sign in'}</Typography>
-        <form onSubmit={handleSubmit}>
+        <Form
+          initialValues={initialValues}
+          validationSchema={isSignup ? signupSchema : signinSchema}
+          onSubmit={handleSubmit}
+        >
+
           <Grid container spacing={3}>
             {isSignup &&
               <>
-                <Input name="firstName" label="First Name" autoFocus half handleChange={handleChange} />
-                <Input name="lastName" label="Last Name" half handleChange={handleChange} />
+                <Grid item xs={12} sm={6}>
+                  <Input name="firstName" label="First Name" />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <Input name="lastName" label="Last Name" />
+                </Grid>
               </>
             }
-            <Input name='email' label='Email Address' type="email" handleChange={handleChange} />
-            <Input
-              name="password"
-              label="Password"
-              type={showPassword ? 'text' : 'password'}
-              handleShowPassword={handleShowPassword}
-              handleChange={handleChange}
-            />
+            <Grid item xs={12}>
+              <Input name='email' label='Email Address' type="email" />
+            </Grid>
 
-            {isSignup && <Input name="confirmPassword" label="Repeat Password" type="password" handleChange={handleChange} />}
+            <Grid item xs={12}>
+              <Input
+                name="password"
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleShowPassword}>
+                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+
+            {isSignup &&
+              <Grid item xs={12}>
+                <Input name="confirmPassword" label="Repeat Password" type="password" />
+              </Grid>
+            }
+
           </Grid>
 
-          <Button type="submit" fullWidth variant="contained" color="primary" className='submitButton'>
+          <Submit fullWidth variant="contained" color="primary" className='submitButton'>
             {isSignup ? 'Sign Up' : 'Sign In'}
-          </Button>
+          </Submit>
 
-          <button className='login-with-google-btn' onClick={signInWithGoogle}>Sign in with Google</button>
+          <button className='login-with-google-btn' onClick={signWithGoogle}>Sign in with Google</button>
 
 
 
@@ -110,7 +160,7 @@ const SignUp = () => {
               </Button>
             </Grid>
           </Grid>
-        </form>
+        </Form>
       </Paper>
     </Container>
   )

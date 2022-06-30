@@ -74,7 +74,7 @@ export default function Post({ post }) {
       </CardContent>
 
       <CardActions className='cardActions'>
-        <Button size="small" color="primary" className='btn' disabled={!userInfo} onClick={() => { likePost(post._id) }}>
+        <Button size="small" color="primary" className='btn' disabled={!userInfo && !JSON.parse(localStorage.getItem('user'))} onClick={() => { likePost(post._id) }}>
           <Likes />
         </Button>
 
