@@ -7,7 +7,7 @@ import Auth from './components/Auth/Auth'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { authAction } from './redux/authSlice';
-import getToken from './utils/getToken';
+import getToken from './utils/helpers/getToken';
 
 function App() {
   const dispatch = useDispatch();
