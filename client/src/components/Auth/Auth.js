@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Container, Button, Grid, Paper, Typography, InputAdornment, IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -11,12 +11,13 @@ import { signupSchema, signinSchema } from '../../utils/validation';
 import Form from '../FormUI/Form';
 import Input from '../FormUI/Input';
 import Submit from '../FormUI/Submit';
-
+import SnackbarMsg from '../Snackbar';
 
 const SignUp = () => {
   let initialValues = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
   const [isSignup, setIsSignup] = useState(false);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -39,8 +40,9 @@ const SignUp = () => {
       await axios.post('/api/v1/user/signup', userInformation);
       navigate('/');
     } catch (error) {
-      alert('Google Sign In was unsuccessful. Try again later');
+      setError('Google Sign In was unsuccessful. Try again later');
     }
+
 
   };
 
@@ -52,14 +54,13 @@ const SignUp = () => {
       await axios.post('/api/v1/user/signin', userInformation);
       navigate('/');
     } catch (error) {
-      alert('Google Sign In was unsuccessful. Try again later');
+      setError('Google Sign In was unsuccessful. Try again later');
     }
 
   };
 
 
   const handleSubmit = async (userInformation) => {
-    console.log(userInformation);
 
     if (isSignup) {
       try {
@@ -67,7 +68,10 @@ const SignUp = () => {
         navigate('/');
 
       } catch (error) {
-        console.log(error)
+        const { message } = error.response?.data;
+        if (message) setError(message);
+
+        if (error.response.status === 500) navigate('/error');
       }
     } else {
       try {
@@ -75,7 +79,10 @@ const SignUp = () => {
         navigate('/');
 
       } catch (error) {
-        console.log(error)
+        const { message } = error.response?.data;
+        if (message) setError(message);
+
+        if (error.response.status === 500) navigate('/error');
 
       }
     }
@@ -90,6 +97,7 @@ const SignUp = () => {
       signInWithGoogle();
     }
   };
+
 
   return (
     <Container component='main' maxWidth='xs' >
@@ -161,6 +169,7 @@ const SignUp = () => {
             </Grid>
           </Grid>
         </Form>
+        {error && <SnackbarMsg message={error} severity={'error'} />}
       </Paper>
     </Container>
   )
