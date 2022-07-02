@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { authAction } from './redux/authSlice';
 import getToken from './utils/helpers/getToken';
+import Error from './components/Error';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +28,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/auth' element={<Auth />} />
+            <Route path='*' element={<Error status={404}/>} />
+            <Route path='/error' element={<Error status={500}/>} />
           </Routes>
         </Container>
       </div>
