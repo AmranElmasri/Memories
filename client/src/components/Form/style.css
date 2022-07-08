@@ -1,8 +1,5 @@
-.paper {
-    padding: 1rem;
-}
-
 form {
+    padding: 0.5rem;
     margin: 8px;
     display: 'flex';
     flex-wrap: 'wrap';

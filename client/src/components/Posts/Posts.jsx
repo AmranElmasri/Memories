@@ -11,9 +11,9 @@ export default function Posts() {
 
   return (
     !posts.length ? <Spinner /> : (
-      <Grid  container alignItems={'stretch'} spacing={3}>
+      <Grid  container alignItems={'stretch'} spacing={2}>
         {posts.map(post => (
-          <Grid className='postGrid' item xs={12} sm={6} md={6} key={post._id}>
+          <Grid className='postGrid' item xs={12} sm={6} md={4} key={post._id}>
             <Post post={post} />
           </Grid>
         ))}
