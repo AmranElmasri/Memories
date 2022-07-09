@@ -26,17 +26,17 @@ export default function Navbar() {
   }
 
 
-  useEffect(() => {
+  useEffect(() => { 
     const user = getToken();
     user && dispatch(authAction(user))
   }, [dispatch, location])
 
   return (
     <AppBar className='AppBar' position='static' color='inherit' >
-      <div className='brandContainer'>
+      <Link className='brandContainer' to={'/'}>
         <Typography className='Typography' variant='h2' align='center'> Memories</Typography>
         <img src={memories} alt='meomories' className="logo" />
-      </div>
+      </Link>
       <Toolbar className='toolbar'>
         {userInfo ?
           <div className='profile'>

@@ -61,7 +61,7 @@ export default function From() {
 
   if (!userInfo && !JSON.parse(localStorage.getItem('user'))) {
     return (
-      <Paper className='paper'>
+      <Paper className='paperText'>
         <Typography variant="h6" align="center">
           Please Sign In to create your own memories and like other's memories.
         </Typography>
@@ -73,7 +73,7 @@ export default function From() {
   return (
     <Paper className='paper'>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? 'Update Memory' : 'Creating a Memory'} </Typography>
+        <Typography sx={{textAlign: 'center'}} variant="h6">{currentId ? 'Update Memory' : 'Creating a Memory'} </Typography>
         <TextField className='field' name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField className='field' name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <TextField className='field' name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />

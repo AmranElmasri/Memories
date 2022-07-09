@@ -4,12 +4,12 @@
     justify-content: space-between;
     border-radius: 1rem !important;
     height: 100%;
-    width: 90%;
+    width: 100%;
     position: relative;
 }
 
 .cardMedia {
-    height: 0;
+    height: 45%;
     padding-top: 56%;
     background-color: rgba(0, 0, 0, 0.5);
     background-blend-mode: darken;
@@ -30,7 +30,7 @@
     color: white;
 }
 /* .grid{
-    display: 'flex',
+    display: flex;
   } */
   .details {
     display: flex;
