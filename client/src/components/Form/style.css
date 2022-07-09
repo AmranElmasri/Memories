@@ -20,3 +20,10 @@ form {
 .clear-btn {
     background-color: rgb(245, 65, 65) !important;
 }
+.paperText {
+    padding: 0.5rem;
+    margin: 8px;
+    display: 'flex';
+    flex-wrap: 'wrap';
+    justify-content: center;
+}

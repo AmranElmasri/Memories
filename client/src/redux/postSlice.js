@@ -2,9 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const postsSlice = createSlice({
     name: 'posts',
-    initialState: { posts: [], currentId: null, updateChange: false },
+    initialState: { posts: [], currentId: null, updateChange: false, isLoading: false},
     reducers: {
-        getPostsAction: (state, action) => {
+        getPostsByPageAction: (state, action) => {
+            state.posts = action.payload.posts;
+            state.totalPages = action.payload.totalPages;
+            state.currentPage = action.payload.currentPage;
+        },
+        getPostBySearchAction: (state, action) => {
             state.posts = action.payload;
         },
         createPostAction: (state, action) => {
@@ -24,10 +29,13 @@ export const postsSlice = createSlice({
         },
         updateChangeAction: (state, action) => {
             state.updateChange = action.payload;
+        },
+        isLoadingAction: (state, action) => {
+            state.isLoading = action.payload;
         }
     }
 });
 
-export const { getPostsAction, createPostAction, createCurrentId, updatePostAction, deletePostAction, likePostAction, updateChangeAction } = postsSlice.actions;
+export const { getPostsByPageAction, createPostAction, createCurrentId, updatePostAction, deletePostAction, likePostAction, updateChangeAction, getPostBySearchAction, isLoadingAction } = postsSlice.actions;
 
 export default postsSlice.reducer;

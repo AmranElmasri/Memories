@@ -61,7 +61,7 @@ export default function From() {
 
   if (!userInfo && !JSON.parse(localStorage.getItem('user'))) {
     return (
-      <Paper className='paper'>
+      <Paper className='paperText'>
         <Typography variant="h6" align="center">
           Please Sign In to create your own memories and like other's memories.
         </Typography>

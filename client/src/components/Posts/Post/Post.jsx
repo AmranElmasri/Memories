@@ -51,7 +51,7 @@ export default function Post({ post }) {
   };
 
   return (
-    <Card className='card'>
+    <Card className='card' raised elevation={6}>
       <CardMedia className='cardMedia' image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
       <div className='overlay'>
         <Typography variant='h6'>{post.creator}</Typography>

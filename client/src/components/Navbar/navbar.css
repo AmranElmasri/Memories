@@ -10,6 +10,7 @@
 .brandContainer {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .Typography {
