@@ -40,7 +40,8 @@ const SignUp = () => {
       await axios.post('/api/v1/user/signup', userInformation);
       navigate('/');
     } catch (error) {
-      setError('Google Sign In was unsuccessful. Try again later');
+      const { message } = error.response?.data || { message: 'Google Sign In was unsuccessful. Try again later' };
+      setError(message);
     }
 
 
@@ -54,7 +55,8 @@ const SignUp = () => {
       await axios.post('/api/v1/user/signin', userInformation);
       navigate('/');
     } catch (error) {
-      setError('Google Sign In was unsuccessful. Try again later');
+      const { message } = error.response?.data || { message: 'Google Sign In was unsuccessful. Try again later' };
+      setError(message);
     }
 
   };

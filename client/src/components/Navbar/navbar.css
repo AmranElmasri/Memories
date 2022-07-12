@@ -1,52 +1,63 @@
 .AppBar {
-    border-radius: 15px;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: row !important; 
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 50px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
 }
+
 .brandContainer {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .Typography {
-    color: rgba(0,183,255, 1);
-    text-align: none;
-    /* width: 50%; */
+  color: rgba(0, 183, 255, 1);
+  text-align: none;
+  /* width: 50%; */
 }
+
 .logo {
-    margin-left: 15px;
-    height: 60px;
-    width: 60px;    
+  margin-left: 15px;
+  height: 60px;
+  width: 60px;
 }
 
 .toolbar {
-    display: flex;
-    justify-content: flex-end;
-    width: 400px;
-  }
+  width: 40%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 
-  .profile{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 400px;
-  }
+.profile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
 
-  .logout-btn {
-    background-color: rgb(245, 65, 65) !important;
+@media (max-width: 600px) {
+  .toolbar {
+    width: 50%;
+    padding: 0 !important;
   }
-  /* .userName {
+}
+
+.logout-btn {
+  background-color: rgb(245, 65, 65) !important;
+}
+
+/* .userName {
     display: flex;
     align-content: center;
   } */
 
-  
-  /* purple: {
+
+/* purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   }, */
