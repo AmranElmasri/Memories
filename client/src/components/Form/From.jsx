@@ -71,7 +71,7 @@ export default function From() {
 
 
   return (
-    <Paper className='paper'>
+    <Paper className='paper' elevation={6}>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography sx={{textAlign: 'center'}} variant="h6">{currentId ? 'Update Memory' : 'Creating a Memory'} </Typography>
         <TextField className='field' name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />

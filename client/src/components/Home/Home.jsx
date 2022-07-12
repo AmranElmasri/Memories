@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { AppBar, Button, Container, Grid, Grow, Paper, TextField } from '@mui/material'
 import Posts from '../Posts/Posts'
 import Form from '../Form/From'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { isLoadingAction } from '../../redux/postSlice';
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles';
 import Pagination from '../Pagination';
@@ -16,7 +16,6 @@ export default function Home() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
-  const { currentId } = useSelector((state => state.posts));
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -84,9 +83,11 @@ export default function Home() {
               <Button onClick={searchPost} variant="contained" color="primary">Search</Button>
             </AppBar>
             <Form />
-            <Paper className={classes.pagination} elevation={6}>
-              <Pagination page={page} />
-            </Paper>
+            {(!searchQuery && !tags.length) && (
+              <Paper className={classes.pagination} elevation={6}>
+                <Pagination page={page} />
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Container>
