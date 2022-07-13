@@ -86,14 +86,14 @@ export default function Post({ post }) {
         </CardContent>
       </ButtonBase>
 
-      <CardActions className='cardActions'>
+      <CardActions className='cardActions' >
         <Button size="small" color="primary" className='btn' disabled={!userInfo && !JSON.parse(localStorage.getItem('user'))} onClick={() => { likePost(post._id) }}>
           <Likes />
         </Button>
 
         {(JSON.parse(localStorage.getItem('user'))?.user.uid === post.creatorId || userInfo?.id === post.creatorId) &&
-          <Button size="small" color="primary" onClick={() => { deletePost(post._id) }}>
-            <DeleteIcon fontSize="small" />
+          <Button size="small" color="error" onClick={() => { deletePost(post._id) }} >
+            <DeleteIcon fontSize="small"/>
             Delete
           </Button>
         }

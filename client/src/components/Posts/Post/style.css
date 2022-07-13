@@ -35,7 +35,7 @@
   .details {
     display: flex;
     justify-content: space-between;
-    margin: 1.2rem;
+    margin: 0.5rem;
   }
   .title {
     padding: 0 1rem;
