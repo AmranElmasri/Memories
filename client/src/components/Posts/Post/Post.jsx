@@ -52,7 +52,7 @@ export default function Post({ post }) {
     return <><ThumbUpOffAltIcon fontSize="small" />&nbsp;Like</>;
   };
 
-  const openPost = (e) => navigate(`/posts/${post._id}`);
+  const openPost = () => navigate(`/posts/${post._id}`);
 
 
   return (

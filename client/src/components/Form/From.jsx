@@ -5,10 +5,12 @@ import FileBase from 'react-file-base64';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPostAction, updatePostAction, createCurrentId } from '../../redux/postSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function From() {
   const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentId } = useSelector((state => state.posts));
   const { posts } = useSelector((state => state.posts));
   const userInfo = useSelector((state) => state.auth.authData);
@@ -40,6 +42,7 @@ export default function From() {
       const createPost = async () => {
         try {
           const { data } = await axios.post('/api/v1/posts', { ...postData, creator: userInfo?.name });
+          navigate(`/posts/${data._id}`);
           dispatch(createPostAction(data));
 
         } catch (error) {

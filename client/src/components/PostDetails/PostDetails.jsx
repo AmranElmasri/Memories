@@ -3,7 +3,7 @@ import { CircularProgress, Divider, Paper, Typography } from '@mui/material'
 import moment from 'moment';
 import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getPostAction, isLoadingAction } from '../../redux/postSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -11,9 +11,9 @@ import axios from 'axios';
 function PostDetails() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { post } = useSelector((state) => state.posts);
-  const { isLoading } = useSelector((state) => state.posts);
+  const { post, isLoading, posts } = useSelector((state) => state.posts);
 
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function PostDetails() {
     getPost(id);
   }, [dispatch, id]);
 
+
   if (!post) return null;
 
   if (isLoading) {
@@ -39,6 +40,12 @@ function PostDetails() {
       </Paper>
     );
   };
+
+
+  const openPost = (id) => navigate(`/posts/${id}`);
+
+
+  const recommendedPosts = posts.filter(post => post._id !== id);
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -59,6 +66,23 @@ function PostDetails() {
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
+      {recommendedPosts.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom variant="h5">You might also like:</Typography>
+          <Divider />
+          <div className={classes.recommendedPosts}>
+            {recommendedPosts.map(({ title, creator, message, likes, selectedFile, _id }) => (
+              <div style={{ margin: "20px", cursor: "pointer" }} onClick={() => openPost(_id)} key={_id}>
+                <Typography gutterBottom variant='h6'>{title}</Typography>
+                <Typography gutterBottom variant="subtitle2">{creator}</Typography>
+                <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                <img src={selectedFile} width="200px" alt='post-img'/>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </Paper>
   )
 }
