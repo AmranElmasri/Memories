@@ -16,7 +16,7 @@ export const postsSlice = createSlice({
             state.posts = action.payload;
         },
         createPostAction: (state, action) => {
-            state.posts = [...state.posts, action.payload]
+            state.posts = [...state.posts, action.payload];
         },
         createCurrentId: (state, action) => {
             state.currentId = action.payload;
