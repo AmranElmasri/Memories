@@ -35,7 +35,7 @@ export const postsSlice = createSlice({
         },
         isLoadingAction: (state, action) => {
             state.isLoading = action.payload;
-        }
+        },
     }
 });
 

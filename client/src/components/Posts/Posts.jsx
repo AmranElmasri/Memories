@@ -14,7 +14,7 @@ export default function Posts() {
     
 
   return (
-    isLoading ? <Spinner /> : (
+    isLoading ? <div className='CircularProgress'><CircularProgress size="5em" /></div>  : (
       <Grid  container alignItems={'stretch'} spacing={2}>
         {posts.map(post => (
           <Grid className='postGrid' item xs={12} sm={12} md={6} lg={3} key={post._id}>

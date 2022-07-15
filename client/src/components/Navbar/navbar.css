@@ -10,7 +10,7 @@
 
 .brandContainer {
   display: flex;
-  align-items: center;
+  align-items: center;  
   text-decoration: none;
 }
 
@@ -20,10 +20,11 @@
   /* width: 50%; */
 }
 
-.logo {
-  margin-left: 15px;
-  height: 60px;
-  width: 60px;
+.darkLogo {
+  color: #42a5f5;
+  font-size: 2.8rem;
+  text-align: center;
+  text-decoration: none;
 }
 
 .toolbar {

@@ -7,6 +7,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getPostAction, isLoadingAction } from '../../redux/postSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
+import CommentsSection from './CommentsSection';
+import default_memory from '../../assets/images/default_memory.jpg'
 
 function PostDetails() {
   const classes = useStyles();
@@ -48,7 +50,7 @@ function PostDetails() {
   const recommendedPosts = posts.filter(post => post._id !== id);
 
   return (
-    <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+    <Paper style={{ padding: '20px', borderRadius: '15px'}} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">{post.title}</Typography>
@@ -57,13 +59,11 @@ function PostDetails() {
           <Typography variant="h6">Created by: {post.creator}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
-          <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+          <CommentsSection post={post}/>
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+          <img className={classes.media} src={post.selectedFile || default_memory} alt={post.title} />
         </div>
       </div>
       {recommendedPosts.length && (
@@ -77,7 +77,7 @@ function PostDetails() {
                 <Typography gutterBottom variant="subtitle2">{creator}</Typography>
                 <Typography gutterBottom variant="subtitle2">{message}</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} width="200px" alt='post-img'/>
+                <img className={classes.recomImg} src={selectedFile || default_memory} width="200px" alt='post-img' style={{maxHeight: "150px"}}/>
               </div>
             ))}
           </div>
