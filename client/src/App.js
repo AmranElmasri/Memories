@@ -1,5 +1,4 @@
-import './App.css';
-import { Box, Container, createTheme, Paper, ThemeProvider } from '@mui/material';
+import { Box, Container, createTheme, ThemeProvider } from '@mui/material';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
