@@ -8,7 +8,6 @@ export default makeStyles((theme) => ({
     width: '100%',
     // height: '100%',
     maxHeight: '500px',
-
   },
   card: {
     display: 'flex',
@@ -39,7 +38,12 @@ export default makeStyles((theme) => ({
     },
   },
   loadingPaper: {
-    display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', borderRadius: '15px', height: '39vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px',
+    borderRadius: '15px',
+    height: '100vh',
   },
   commentsOuterContainer: {
     display: 'flex',

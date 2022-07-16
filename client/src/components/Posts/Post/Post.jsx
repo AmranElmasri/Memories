@@ -4,7 +4,7 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBa
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCurrentId, deletePostAction, likePostAction } from '../../../redux/postSlice'
@@ -74,7 +74,7 @@ export default function Post({ post }) {
       {(JSON.parse(localStorage.getItem('user'))?.user.uid === post.creatorId || userInfo?.id === post.creatorId) &&
         <div className='overlay2'>
           <Button style={{ color: 'white' }} size='small' onClick={() => { dispatch(createCurrentId(post._id)) }}>
-            <MoreHorizIcon fontSize='small' />
+            <EditIcon fontSize='small' />
           </Button>
         </div>
       }
