@@ -1,4 +1,5 @@
-import { join } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
@@ -30,6 +31,9 @@ app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/user', userRoutes);
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);  // because __dirname is not defined in ES module scope
+
 
 if (process.env.NODE_ENV === 'development') {
     app.get('/', (req, res) => {
@@ -38,9 +42,9 @@ if (process.env.NODE_ENV === 'development') {
 };
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(join(__dirname, '..', 'client', 'build')));
+    app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
     app.get('*', (req, res) => {
-        res.sendFile(join(__dirname, '..', 'client', 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
     });
 };
 
