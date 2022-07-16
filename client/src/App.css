@@ -1,7 +1,0 @@
-
-/* in this breakpoint we need the form before posts */
-@media (max-width: 576px) {
-    .grid-content {
-        flex-direction: column-reverse !important;
-    }
-}

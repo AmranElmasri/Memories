@@ -1,0 +1,23 @@
+{
+  "name": "memories",
+  "version": "1.0.0",
+  "description": "Momeries is MERN stack social media",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "client": "cd client && npm start",
+    "server": "cd server && npm run dev",
+    "heroku-postbuild": "cd server && npm i && cd ../client && npm i --force && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmranElmasri/Memories.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmranElmasri/Memories/issues"
+  },
+  "homepage": "https://github.com/AmranElmasri/Memories#readme"
+}

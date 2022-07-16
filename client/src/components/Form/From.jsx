@@ -5,10 +5,12 @@ import FileBase from 'react-file-base64';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPostAction, updatePostAction, createCurrentId } from '../../redux/postSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function From() {
   const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentId } = useSelector((state => state.posts));
   const { posts } = useSelector((state => state.posts));
   const userInfo = useSelector((state) => state.auth.authData);
@@ -40,6 +42,7 @@ export default function From() {
       const createPost = async () => {
         try {
           const { data } = await axios.post('/api/v1/posts', { ...postData, creator: userInfo?.name });
+          navigate(`/posts/${data._id}`);
           dispatch(createPostAction(data));
 
         } catch (error) {
@@ -61,7 +64,7 @@ export default function From() {
 
   if (!userInfo && !JSON.parse(localStorage.getItem('user'))) {
     return (
-      <Paper className='paper'>
+      <Paper className='paperText'>
         <Typography variant="h6" align="center">
           Please Sign In to create your own memories and like other's memories.
         </Typography>
@@ -71,9 +74,9 @@ export default function From() {
 
 
   return (
-    <Paper className='paper'>
+    <Paper className='paper' elevation={6}>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? 'Update Memory' : 'Creating a Memory'} </Typography>
+        <Typography sx={{textAlign: 'center'}} variant="h6">{currentId ? 'Update Memory' : 'Creating a Memory'} </Typography>
         <TextField className='field' name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField className='field' name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <TextField className='field' name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />

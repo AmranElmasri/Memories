@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Container, Button, Grid, Paper, Typography, InputAdornment, IconButton } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -40,7 +40,8 @@ const SignUp = () => {
       await axios.post('/api/v1/user/signup', userInformation);
       navigate('/');
     } catch (error) {
-      setError('Google Sign In was unsuccessful. Try again later');
+      const { message } = error.response?.data || { message: 'Google Sign In was unsuccessful. Try again later' };
+      setError(message);
     }
 
 
@@ -54,7 +55,8 @@ const SignUp = () => {
       await axios.post('/api/v1/user/signin', userInformation);
       navigate('/');
     } catch (error) {
-      setError('Google Sign In was unsuccessful. Try again later');
+      const { message } = error.response?.data || { message: 'Google Sign In was unsuccessful. Try again later' };
+      setError(message);
     }
 
   };
@@ -100,7 +102,7 @@ const SignUp = () => {
 
 
   return (
-    <Container component='main' maxWidth='xs' >
+    <Container component='main' maxWidth='xs' sx={{height: "100vh"}}>
       <Paper className='paperAuth' elevation={3}>
         <Avatar className='avatar'>
           <LockOutlinedIcon />
