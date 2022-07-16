@@ -102,7 +102,7 @@ const SignUp = () => {
 
 
   return (
-    <Container component='main' maxWidth='xs' >
+    <Container component='main' maxWidth='xs' sx={{height: "100vh"}}>
       <Paper className='paperAuth' elevation={3}>
         <Avatar className='avatar'>
           <LockOutlinedIcon />
