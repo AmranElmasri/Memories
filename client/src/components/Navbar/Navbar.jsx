@@ -41,9 +41,9 @@ export default function Navbar({ mode, setMode }) {
       <AppBar className='AppBar' position='static' color='inherit' >
         <Link className='brandContainer' to={'/'}>
           {darkLogo ?
-            <Typography className="darkLogo" variant="h3" style={{ marginRight: "20px", fontWeight: "bold" }}>MEMORIES</Typography>
+            <Typography className="darkLogo" variant="h3" style={{ marginRight: "20px", fontWeight: "bold" }} sx={{ display: { xs: "none", sm: "block" } }} >MEMORIES</Typography>
             :
-            <img src={textLogo} alt="logo" height='45px' style={{ marginRight: "20px" }} />
+            <Typography sx={{ display: { xs: "none", sm: "block" } }}> <img src={textLogo} alt="logo" height='45px' style={{ marginRight: "20px" }} /></Typography>
           }
           <img src={memories} alt='logo' height='45px' />
         </Link>
