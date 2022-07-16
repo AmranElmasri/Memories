@@ -1,3 +1,4 @@
+import { join } from 'path';
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
@@ -29,7 +30,19 @@ app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/user', userRoutes);
 
 
-app.listen(app.get('port'), () => console.log(`The server running on http://localhost:${app.get('port')}`))
+
+if (process.env.NODE_ENV === 'development') {
+    app.get('/', (req, res) => {
+        res.send('The server is running..');
+    });
+};
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(join(__dirname, '..', 'client', 'build')));
+    app.get('*', (req, res) => {
+        res.sendFile(join(__dirname, '..', 'client', 'build', 'index.html'));
+    });
+};
 
 
 // mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -38,3 +51,4 @@ app.listen(app.get('port'), () => console.log(`The server running on http://loca
 //     .catch((error) => console.log(error.message));
 
 
+export default app;
