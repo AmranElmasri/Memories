@@ -19,7 +19,7 @@ const CommentsSection = ({ post }) => {
     const finalComment = `${userInfo.name}: ${comment}`;
     try {
       setComments([...comments, finalComment]);  // to speed up the rendering
-      setComment('');  
+      setComment('');
       const { data } = await axios.post(`/api/v1/posts/${post._id}/comments`, { finalComment });
       dispatch(updatePostAction(data));
 
@@ -43,21 +43,23 @@ const CommentsSection = ({ post }) => {
               {comment.split(':')[1]}
             </Typography>
           ))}
-          <div ref={commentsRef} /> 
-        </div>    
-        <div style={{ width: '70%' }}>
-          <Typography gutterBottom variant='h6'> Write a comment</Typography>
-          <TextField
-            variant='outlined'
-            multiline
-            rows={4}
-            fullWidth
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            label="Comment"
-          />
-          <Button style={{ marginTop: '10px' }} variant='contained' fullWidth color='primary' disabled={!comment} onClick={handelComments}> Comment</Button>
+          <div ref={commentsRef} />
         </div>
+        {userInfo && (
+          <div style={{ width: '70%' }}>
+            <Typography gutterBottom variant='h6'> Write a comment</Typography>
+            <TextField
+              variant='outlined'
+              multiline
+              rows={4}
+              fullWidth
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              label="Comment"
+            />
+            <Button style={{ marginTop: '10px' }} variant='contained' fullWidth color='primary' disabled={!comment} onClick={handelComments}> Comment</Button>
+          </div>
+        )}
 
       </div>
     </div>
