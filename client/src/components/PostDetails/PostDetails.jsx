@@ -75,7 +75,7 @@ function PostDetails() {
               <div style={{ margin: "20px", cursor: "pointer" }} onClick={() => openPost(_id)} key={_id}>
                 <Typography gutterBottom variant='h6'>{title}</Typography>
                 <Typography gutterBottom variant="subtitle2">{creator}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                <Typography gutterBottom variant="subtitle2">{message.split('').slice(0, 30).join('')}...</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
                 <img className={classes.recomImg} src={selectedFile || default_memory} width="200px" alt='post-img' style={{maxHeight: "150px"}}/>
               </div>
