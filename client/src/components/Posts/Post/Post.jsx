@@ -30,14 +30,14 @@ export default function Post({ post }) {
     }
   };
 
-  const hasLikedPost = post.likes.find((like) => like === userInfo?.id);
+  const hasLikedPost = post.likes?.find((like) => like === userInfo?.id);
 
 
   const likePost = async (id) => {
     try {
 
       if (hasLikedPost) { // if user has already liked post, remove like from likes array (to speed up rendering)
-        setLikes(post.likes.filter((id) => id !== userInfo?.id));
+        setLikes(post.likes?.filter((id) => id !== userInfo?.id));
       } else {
         setLikes([...post.likes, userInfo?.id]);
       }
