@@ -3,7 +3,8 @@ Momeries is MERN stack social media
 
 [Live link](https://amran-memoreis.herokuapp.com/posts)
 
+![Screenshot from 2022-07-16 20-37-11](https://user-images.githubusercontent.com/88728652/179366061-31f136d1-65d2-41a6-9fdb-4c7f56ec0ee3.png)
 
-![Screenshot from 2022-07-16 19-55-25](https://user-images.githubusercontent.com/88728652/179365761-7274dc23-67d2-420f-81c4-207730ea214b.png)
+---
 
-![darkMode](https://user-images.githubusercontent.com/88728652/179365772-cc48d8f0-d1b2-47bb-9758-d50634e2c1ca.png)
+![Screenshot from 2022-07-16 20-37-25](https://user-images.githubusercontent.com/88728652/179366071-2ba85a4d-b923-4e44-b4d0-a61c159887c1.png)
